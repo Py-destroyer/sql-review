@@ -66,11 +66,12 @@ begin
 		end as Reason
 	into #BadInsertedRows
 	from syn.sa_CustomerSeasonal as cs
-	left join dbo.Customer as c on c.UID_DS = cs.UID_DS_Customer
-		and c.ID_map_DataSource = 1
-	left join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor and c_dist.ID_mapping_DataSource = 1
-	left join dbo.Season as s on s.Name = cs.Season
-	left join syn.CustomerSystemType as cst on cst.Name = cs.CustomerSystemType
+		left join dbo.Customer as c on c.UID_DS = cs.UID_DS_Customer
+			and c.ID_map_DataSource = 1
+		left join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor 
+			and c_dist.ID_mapping_DataSource = 1
+		left join dbo.Season as s on s.Name = cs.Season
+		left join syn.CustomerSystemType as cst on cst.Name = cs.CustomerSystemType
 	where c.ID is null
 		or c_dist.ID is null
 		or s.ID is null
@@ -119,7 +120,7 @@ begin
 			,bir.UID_DS_CustomerDistributor as 'UID Дистрибьютора'
 			,bir.CustomerDistributor as 'Дистрибьютор'
 			,isnull(format(try_cast(bir.DateBegin as date), 'dd.MM.yyyy', 'ru-RU'), bir.DateBegin) as 'Дата начала'
-			,isnull(format(try_cast(birDateEnd as date), 'dd.MM.yyyy', 'ru-RU'), bir.DateEnd) as 'Дата окончания'
+			,isnull(format(try_cast(bir.DateEnd as date), 'dd.MM.yyyy', 'ru-RU'), bir.DateEnd) as 'Дата окончания'
 			,bir.FlagActive as 'Активность'
 			,bir.Reason as 'Причина'
 		from #BadInsertedRows as bir
