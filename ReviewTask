@@ -110,7 +110,7 @@ begin
 		select @ErrorMessage = concat('Обработано строк: ', @RowCount)
 		raiserror(@ErrorMessage, 1, 1)
 
-		--Формирование таблицы для отчетности
+		-- Формирование таблицы для отчетности
 		select top 100
 			bir.Season as 'Сезон'
 			,bir.UID_DS_Customer as 'UID Клиента'
